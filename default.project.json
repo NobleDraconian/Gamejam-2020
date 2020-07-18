@@ -21,6 +21,7 @@
 				"Modules" : {"$path" : "src/Client/Modules"},
 				"Scripts" : {"$path" : "src/Client/Scripts"},
 				"Controllers" : {"$path" : "src/Client/Controllers"},
+				"LightingStates" : {"$path" : "src/Client/LightingStates"},
 				"FrameworkClient" : {"$path" : "Packages/DragonEngine/client.project.json"}
 			}
 		},
@@ -34,8 +35,10 @@
 		"ReplicatedStorage" : {
 			"$className" : "ReplicatedStorage",
 
+			"Assets" : {"$path" : "Assets/Client"},
 			"DragonEngine_Configs" : {"$path" : "src/Shared/DragonEngine_Configs"},
 			"Modules" : {"$path" : "src/Shared/Modules"},
+			"LevelConfigs" : {"$path" : "src/Shared/LevelConfigs"},
 			"FrameworkCore" : {"$path" : "Packages/DragonEngine/shared.project.json"}
 		},
 
