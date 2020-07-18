@@ -78,6 +78,13 @@
 				"ShadowSoftness" : 0.5
 			},
 			"$path" : "Assets/TestEnv/Lighting"
+		},
+
+		"Players" : {
+			"$className" : "Players",
+			"$properties" : {
+				"CharacterAutoLoads" : false
+			}
 		}
 	}
 }
