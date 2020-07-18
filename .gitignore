@@ -1,0 +1,4 @@
+*.lock
+site/
+Temp/*
+!Temp/.gitkeep
