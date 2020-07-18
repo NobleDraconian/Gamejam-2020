@@ -8,7 +8,8 @@
 
 			"Modules" : {"$path" : "src/Server/Modules"},
 			"Scripts" : {"$path" : "src/Server/Scripts"},
-			"Services" : {"$path" : "src/Server/Services"}
+			"Services" : {"$path" : "src/Server/Services"},
+			"FrameworkServer" : {"$path" : "Packages/DragonEngine/server.project.json"}
 		},
 
 		"StarterPlayer" : {
@@ -19,7 +20,8 @@
 
 				"Modules" : {"$path" : "src/Client/Modules"},
 				"Scripts" : {"$path" : "src/Client/Scripts"},
-				"Controllers" : {"$path" : "src/Client/Controllers"}
+				"Controllers" : {"$path" : "src/Client/Controllers"},
+				"FrameworkClient" : {"$path" : "Packages/DragonEngine/client.project.json"}
 			}
 		},
 
@@ -27,7 +29,8 @@
 			"$className" : "ReplicatedStorage",
 
 			"DragonEngine_Configs" : {"$path" : "src/Shared/DragonEngine_Configs"},
-			"Modules" : {"$path" : "src/Shared/Modules"}
+			"Modules" : {"$path" : "src/Shared/Modules"},
+			"FrameworkCore" : {"$path" : "Packages/DragonEngine/shared.project.json"}
 		},
 
 		"Workspace" : {

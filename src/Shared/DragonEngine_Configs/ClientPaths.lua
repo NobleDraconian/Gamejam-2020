@@ -13,8 +13,8 @@ local ReplicatedStorage=game:GetService("ReplicatedStorage")
 return {
 	ModulePaths = {
 		Shared = {
-			ReplicatedStorage.Utils,
-			Players.LocalPlayer.PlayerScripts:WaitForChild("Utils")
+			ReplicatedStorage.Modules,
+			Players.LocalPlayer.PlayerScripts:WaitForChild("Modules")
 		},
 	},
 

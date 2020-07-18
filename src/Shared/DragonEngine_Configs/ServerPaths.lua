@@ -13,11 +13,10 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 return {
 	ModulePaths = {
 		Server = {
-			ServerScriptService.Classes,
-			ServerScriptService.Utils
+			ServerScriptService.Modules,
 		},
 		Shared = {
-			ReplicatedStorage.Utils,
+			ReplicatedStorage.Modules,
 		}
 	},
 

@@ -1,0 +1,3 @@
+[submodule "Packages/DragonEngine"]
+	path = Packages/DragonEngine
+	url = git@github.com:NobleDraconian/Dragon-Engine
