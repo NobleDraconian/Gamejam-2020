@@ -1,2 +1,3 @@
 # Gamejam-2020
-Soon(TM)
+
+The code here is going to be messy. Use at your own risk!
