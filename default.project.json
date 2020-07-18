@@ -25,6 +25,12 @@
 			}
 		},
 
+		"ServerStorage" : {
+			"$className" : "ServerStorage",
+
+			"Assets" : {"$path" : "Assets/Server"}
+		},
+
 		"ReplicatedStorage" : {
 			"$className" : "ReplicatedStorage",
 
