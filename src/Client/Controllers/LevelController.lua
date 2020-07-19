@@ -10,6 +10,7 @@ local LevelController = {}
 ---------------------
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")
 
 ------------------
@@ -28,7 +29,7 @@ local Player = Players.LocalPlayer
 local PlayerScripts = Player:WaitForChild("PlayerScripts")
 local LevelConfigs = ReplicatedStorage.LevelConfigs
 local MenuUI = ReplicatedStorage.Assets.UIs.MenuUI:Clone()
-      MenuUI.Parent = Player:WaitForChild("PlayerGui")
+	  MenuUI.Parent = Player:WaitForChild("PlayerGui")
 local CurrentLevel;
 local WeatherRand = Random.new()
 
@@ -53,6 +54,19 @@ function LevelController:Init()
 	------------------------
 	-- Setting up menu UI --
 	------------------------
+	local MenuBackdrop = ReplicatedStorage.Assets.MenuBackdrop:Clone()
+		  MenuBackdrop.Parent = Workspace
+	
+	MenuBackdrop:MoveTo(Vector3.new(0,0,0))
+	Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+	Workspace.CurrentCamera.CFrame = CFrame.new(
+		Vector3.new(
+			MenuBackdrop.PrimaryPart.Position.X,
+			MenuBackdrop.PrimaryPart.Position.Y + 42,
+			MenuBackdrop.PrimaryPart.Position.Z + 80
+		),
+		MenuBackdrop.PrimaryPart.Position
+	)
 	for _,Level in pairs(LevelConfigs:GetChildren()) do
 		local LevelButton = MenuUI.BaseButton:Clone()
 		local LevelNumber = tonumber(string.sub(Level.Name,-1))
@@ -64,6 +78,7 @@ function LevelController:Init()
 		LevelButton.Parent = MenuUI.LevelSelect
 		LevelButton.Button.MouseButton1Click:connect(function()
 			LoadingUI:Show()
+			MenuBackdrop:Destroy()
 			MenuUI.Enabled = false
 			LevelService:PlayLevel(LevelButton.Name)
 			wait(3)
@@ -128,6 +143,11 @@ function LevelController:Start()
 			Rain:Disable()
 		end
 		wait(1) -- Let map finish replicating
+		if Workspace:FindFirstChild("MenuBackdrop") ~= nil then
+			Workspace.MenuBackdrop:Destroy()
+		end
+		Workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+		Workspace.CurrentCamera.CameraSubject = Players.LocalPlayer.Character.Humanoid
 		PerspectiveController:SetPerspective(Level.Configs.StartingPerspective)
 	end)
 
@@ -137,10 +157,23 @@ function LevelController:Start()
 	LevelService.GoalReached:connect(function()
 		LoadingUI:Show()
 		MenuUI.Enabled = true
+		local MenuBackdrop = ReplicatedStorage.Assets.MenuBackdrop:Clone()
+		      MenuBackdrop.Parent = Workspace
+  
 		Music_FadeOut_Tween:Play()
 		Music_FadeOut_Tween.Completed:wait()
 		Music:Stop()
 		PerspectiveController:SetPerspective("3D")
+		MenuBackdrop:MoveTo(Vector3.new(0,0,0))
+		Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+		Workspace.CurrentCamera.CFrame = CFrame.new(
+			Vector3.new(
+				MenuBackdrop.PrimaryPart.Position.X,
+				MenuBackdrop.PrimaryPart.Position.Y + 42,
+				MenuBackdrop.PrimaryPart.Position.Z + 80
+			),
+			MenuBackdrop.PrimaryPart.Position
+		)
 		LoadingUI:Hide()
 	end)
 end
