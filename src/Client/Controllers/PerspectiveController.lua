@@ -67,7 +67,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PerspectiveController:SetPerspective(Perspective)
 	PerspectiveUI.Enabled = true
-	
+
 	if CurrentPerspective ~= Perspective then
 		local CurrentMap = LevelController:GetCurrentMap()
 
@@ -223,6 +223,7 @@ function PerspectiveController:SetPerspective(Perspective)
 			ClearCache()
 			CurrentPerspective = "3D"
 		end
+		PerspectiveUI.Button.CurrentPerspective.Text = CurrentPerspective
 	end
 end
 
