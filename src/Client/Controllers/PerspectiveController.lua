@@ -13,6 +13,7 @@ local HttpService = game:GetService("HttpService")
 local Lighting = game:GetService("Lighting")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 
@@ -30,6 +31,8 @@ local PerspectiveUI = ReplicatedStorage.Assets.UIs.PerspectiveUI:Clone()
 local CurrentPerspective = "3D"
 local Perspective_MapCache = {} --Stores original 3D positions of map geometry since 2D / 4D perspectives shift it around.
 local Player_3DCoords = {}
+local CurrentFloorPart;
+local CurrentFloorPart_RelPos;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Cleares the map geometry cache
@@ -145,16 +148,23 @@ function PerspectiveController:SetPerspective(Perspective)
 			----------------------------
 			-- Restoring map geometry --
 			----------------------------
-			Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(
-				Players.LocalPlayer.Character.HumanoidRootPart.Position.X,
-				Players.LocalPlayer.Character.HumanoidRootPart.Position.Y,
-				Player_3DCoords.Z
-			)))
 			for _,Object in pairs(CurrentMap.Geometry:GetDescendants()) do
 				if Object:IsA("Part") or Object:IsA("MeshPart") or Object:IsA("UnionOperation") then
 					Object.Position = Perspective_MapCache[Object.Name]
 				end
 			end
+			if CurrentFloorPart ~= nil then
+				Player_3DCoords = Vector3.new(
+					Players.LocalPlayer.Character.HumanoidRootPart.Position.X,
+					Players.LocalPlayer.Character.HumanoidRootPart.Position.Y,
+					CurrentFloorPart.Position.Z
+				)
+			end
+			Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(
+				Players.LocalPlayer.Character.HumanoidRootPart.Position.X,
+				Players.LocalPlayer.Character.HumanoidRootPart.Position.Y,
+				Player_3DCoords.Z
+			)))
 
 			-------------------------------------
 			-- Enabling movement on the Z axis --
@@ -248,6 +258,15 @@ function PerspectiveController:Start()
 				self:SetPerspective("3D")
 			end
 			ToggleDebounce = false
+		end
+	end)
+
+	RunService.Stepped:connect(function()
+		if self:GetCurrentPerspective() == "2D" then
+			local Ray = Ray.new(Players.LocalPlayer.Character.HumanoidRootPart.Position,Vector3.new(0,-5,0))
+			local FloorPart = Workspace:FindPartOnRay(Ray,Players.LocalPlayer.Character)
+
+			CurrentFloorPart = FloorPart
 		end
 	end)
 end
