@@ -126,7 +126,7 @@ function PerspectiveController:SetPerspective(Perspective)
 				Workspace.CurrentCamera,
 				TweenInfo.new(0.8,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
 				{
-					CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(0,20,CurrentMap.PrimaryPart.Size.X + 3000)
+					CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(0,35,3000 + (CurrentMap.PrimaryPart.Size.X * 2))
 				}
 			)
 			Workspace.CurrentCamera.CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(Players.LocalPlayer.Character.PrimaryPart.CFrame.Position)
@@ -261,14 +261,21 @@ function PerspectiveController:Start()
 		end
 	end)
 
-	RunService.Stepped:connect(function()
+	while wait(0.1) do
 		if self:GetCurrentPerspective() == "2D" then
-			local Ray = Ray.new(Players.LocalPlayer.Character.HumanoidRootPart.Position,Vector3.new(0,-5,0))
-			local FloorPart = Workspace:FindPartOnRay(Ray,Players.LocalPlayer.Character)
+			local raycastParams = RaycastParams.new()
+				  raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+				  raycastParams.FilterDescendantsInstances = {Players.LocalPlayer.Character,LevelController:GetCurrentMap().PrimaryPart}
+			local RayResult = Workspace:Raycast(Players.LocalPlayer.Character.HumanoidRootPart.Position,Vector3.new(0,-1,0).Unit * 50,raycastParams)
+			local FloorPart = RayResult.Instance
 
-			CurrentFloorPart = FloorPart
+			if FloorPart ~= nil then
+				if FloorPart.Name ~= "Root" then
+					CurrentFloorPart = FloorPart
+				end
+			end
 		end
-	end)
+	end
 end
 
 return PerspectiveController
