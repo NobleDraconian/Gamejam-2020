@@ -66,6 +66,8 @@ end
 -- @Params : string "Perspective" - The perspective to force the player into
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function PerspectiveController:SetPerspective(Perspective)
+	PerspectiveUI.Enabled = true
+	
 	if CurrentPerspective ~= Perspective then
 		local CurrentMap = LevelController:GetCurrentMap()
 

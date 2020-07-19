@@ -57,6 +57,7 @@ function LevelController:Init()
 	local MenuBackdrop = ReplicatedStorage.Assets.MenuBackdrop:Clone()
 		  MenuBackdrop.Parent = Workspace
 	
+	Player.PlayerGui.PerspectiveUI.Enabled = false
 	MenuBackdrop:MoveTo(Vector3.new(0,0,0))
 	Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 	Workspace.CurrentCamera.CFrame = CFrame.new(
@@ -164,6 +165,7 @@ function LevelController:Start()
 		Music_FadeOut_Tween.Completed:wait()
 		Music:Stop()
 		PerspectiveController:SetPerspective("3D")
+		Player.PlayerGui.PerspectiveUI.Enabled = false
 		MenuBackdrop:MoveTo(Vector3.new(0,0,0))
 		Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 		Workspace.CurrentCamera.CFrame = CFrame.new(
