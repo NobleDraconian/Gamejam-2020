@@ -62,7 +62,7 @@ function LevelService:RunLevel(LevelName)
 
 	Player:LoadCharacter()
 	Player.Character:MoveTo(Map.Start.Position)
-	
+
 	LevelStarted:Fire(CurrentLevel)
 	LevelStarted_Client:FireClient(self:GetPlayer(),CurrentLevel)
 end
