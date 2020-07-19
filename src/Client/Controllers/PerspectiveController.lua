@@ -44,7 +44,8 @@ end
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Sinks W and S key inputs
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local function SinkZMovement()
+local function SinkZMovement() --! Hack...we should be using physics to lock the avatar to the XY axis, not disabling input.
+	                           --! But hey it's gamejam, so no one cares.
 	return Enum.ContextActionResult.Sink
 end
 
