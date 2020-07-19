@@ -10,6 +10,7 @@ local LevelController = {}
 ---------------------
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 
 ------------------
 -- Dependencies --
@@ -83,6 +84,28 @@ function LevelController:Start()
 	LightingController = self:GetController("LightingController")
 	PerspectiveController = self:GetController("PerspectiveController")
 
+	-------------
+	-- Defines --
+	-------------
+	local Music = Instance.new('Sound')
+	      Music.Volume = 0
+		  Music.Looped = true
+		  Music.Parent = MenuUI
+	local Music_FadeIn_Tween = TweenService:Create(
+		Music,
+		TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
+		{
+			Volume = 0.5
+		}
+	)
+	local Music_FadeOut_Tween = TweenService:Create(
+		Music,
+		TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
+		{
+			Volume = 0
+		}
+	)
+
 	---------------------------------------
 	-- Registering level lighting states --
 	---------------------------------------
@@ -96,6 +119,9 @@ function LevelController:Start()
 	LevelService.LevelStarted:connect(function(Level)
 		CurrentLevel = Level
 		LightingController:LoadLightingState(Level.Configs.LightingState)
+		Music.SoundId = Level.Configs.Music
+		Music:Play()
+		Music_FadeIn_Tween:Play()
 		if WeatherRand:NextInteger(1,10) == 1 then
 			Rain:Enable()
 		else
@@ -111,6 +137,9 @@ function LevelController:Start()
 	LevelService.GoalReached:connect(function()
 		LoadingUI:Show()
 		MenuUI.Enabled = true
+		Music_FadeOut_Tween:Play()
+		Music_FadeOut_Tween.Completed:wait()
+		Music:Stop()
 		PerspectiveController:SetPerspective("3D")
 		LoadingUI:Hide()
 	end)
