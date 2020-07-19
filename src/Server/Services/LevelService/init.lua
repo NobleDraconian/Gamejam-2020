@@ -34,6 +34,15 @@ local CurrentLevel = {
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- @Name : Client.PlayLevel
+-- @Descriptoin : Loads the specified level for the player
+-- @Params : string "LevelName" - The name of the level to load
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function LevelService.Client:PlayLevel(_,LevelName)
+	self.Server:RunLevel(LevelName)
+end
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- @Name : GetPlayer
 -- @Description : Gets the player playing the level
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,12 +59,29 @@ end
 -- @Params : string "LevelName" - The name of the level to run
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function LevelService:RunLevel(LevelName)
+	warn(LevelName)
 	local Player = self:GetPlayer()
 	local NewLevel_Configs = require(LevelConfigs[LevelName])
 	local Map = NewLevel_Configs.Map:Clone()
 		  Map.Parent = Workspace
 
-	Map:SetPrimaryPartCFrame(CFrame.new(0,0,0))	
+	if CurrentLevel ~= nil then
+		CurrentLevel.Map:Destroy()
+	end
+
+	Map:SetPrimaryPartCFrame(CFrame.new(0,0,0))
+
+	local TouchedConnection;
+	TouchedConnection = Map.End.Touched:connect(function(TP)
+		if TP.Parent:FindFirstChild("Humanoid") ~= nil then
+			TouchedConnection:Disconnect()
+			GoalReached:Fire()
+			GoalReached_Client:FireClient(Player)
+			wait(1)
+			Player.Character:Destroy()
+		end
+	end)
+	CurrentLevel = {}
 	CurrentLevel.Name = NewLevel_Configs.Name
 	CurrentLevel.Map = Map
 	CurrentLevel.Configs = NewLevel_Configs
@@ -78,6 +104,8 @@ function LevelService:Init()
 	LevelStarted_Client = self:RegisterServiceClientEvent("LevelStarted")
 	GoalReached = self:RegisterServiceServerEvent("GoalReached")
 	GoalReached_Client = self:RegisterServiceClientEvent("GoalReached")
+
+	CurrentLevel = nil
 
 	self:DebugLog("[Level Service] Initialized!")
 end

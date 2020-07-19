@@ -9,6 +9,7 @@ local LevelController = {}
 -- Roblox Services --
 ---------------------
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 ------------------
 -- Dependencies --
@@ -16,12 +17,16 @@ local Players = game:GetService("Players")
 local LevelService;
 local LightingController;
 local PerspectiveController;
+local LoadingUI;
 
 -------------
 -- Defines --
 -------------
 local Player = Players.LocalPlayer
 local PlayerScripts = Player:WaitForChild("PlayerScripts")
+local LevelConfigs = ReplicatedStorage.LevelConfigs
+local MenuUI = ReplicatedStorage.Assets.UIs.MenuUI:Clone()
+      MenuUI.Parent = Player:WaitForChild("PlayerGui")
 local CurrentLevel;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,6 +44,28 @@ end
 function LevelController:Init()
 	self:DebugLog("[Level Controller] Initializing...")
 
+	LoadingUI = self:GetModule("LoadingUI")
+
+	------------------------
+	-- Setting up menu UI --
+	------------------------
+	for _,Level in pairs(LevelConfigs:GetChildren()) do
+		local LevelButton = MenuUI.BaseButton:Clone()
+		local LevelNumber = tonumber(string.sub(Level.Name,-1))
+
+		LevelButton.Name = Level.Name
+		LevelButton.LayoutOrder = LevelNumber
+		LevelButton.Button.TextLabel.Text = "Level "..LevelNumber
+		LevelButton.Visible = true
+		LevelButton.Parent = MenuUI.LevelSelect
+		LevelButton.Button.MouseButton1Click:connect(function()
+			LoadingUI:Show()
+			MenuUI.Enabled = false
+			LevelService:PlayLevel(LevelButton.Name)
+			wait(3)
+			LoadingUI:Hide()
+		end)
+	end
 	self:DebugLog("[Level Controller] Initialized!")
 end
 
@@ -65,9 +92,19 @@ function LevelController:Start()
 	----------------------------------------------------
 	LevelService.LevelStarted:connect(function(Level)
 		CurrentLevel = Level
+		LightingController:LoadLightingState(Level.Configs.LightingState)
 		wait(1) -- Let map finish replicating
 		PerspectiveController:SetPerspective(Level.Configs.StartingPerspective)
-		LightingController:LoadLightingState(Level.Configs.LightingState)
+	end)
+
+	--------------------------------------------
+	-- Running menu when a level is completed --
+	--------------------------------------------
+	LevelService.GoalReached:connect(function()
+		LoadingUI:Show()
+		MenuUI.Enabled = true
+		PerspectiveController:SetPerspective("3D")
+		LoadingUI:Hide()
 	end)
 end
 
