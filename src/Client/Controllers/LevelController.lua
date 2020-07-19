@@ -18,6 +18,7 @@ local LevelService;
 local LightingController;
 local PerspectiveController;
 local LoadingUI;
+local Rain;
 
 -------------
 -- Defines --
@@ -28,6 +29,7 @@ local LevelConfigs = ReplicatedStorage.LevelConfigs
 local MenuUI = ReplicatedStorage.Assets.UIs.MenuUI:Clone()
       MenuUI.Parent = Player:WaitForChild("PlayerGui")
 local CurrentLevel;
+local WeatherRand = Random.new()
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- @Name : GetCurrentMap
@@ -45,6 +47,7 @@ function LevelController:Init()
 	self:DebugLog("[Level Controller] Initializing...")
 
 	LoadingUI = self:GetModule("LoadingUI")
+	Rain = self:GetModule("Rain")
 
 	------------------------
 	-- Setting up menu UI --
@@ -93,6 +96,11 @@ function LevelController:Start()
 	LevelService.LevelStarted:connect(function(Level)
 		CurrentLevel = Level
 		LightingController:LoadLightingState(Level.Configs.LightingState)
+		if WeatherRand:NextInteger(1,10) == 1 then
+			Rain:Enable()
+		else
+			Rain:Disable()
+		end
 		wait(1) -- Let map finish replicating
 		PerspectiveController:SetPerspective(Level.Configs.StartingPerspective)
 	end)
