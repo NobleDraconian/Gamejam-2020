@@ -126,7 +126,7 @@ function PerspectiveController:SetPerspective(Perspective)
 				Workspace.CurrentCamera,
 				TweenInfo.new(0.8,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
 				{
-					CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(0,35,3000 + (CurrentMap.PrimaryPart.Size.X * 2))
+					CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(0,35,3000 + (CurrentMap.PrimaryPart.Size.X * 4))
 				}
 			)
 			Workspace.CurrentCamera.CFrame = CurrentMap.PrimaryPart.CFrame * CFrame.new(Players.LocalPlayer.Character.PrimaryPart.CFrame.Position)
