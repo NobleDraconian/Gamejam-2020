@@ -15,6 +15,7 @@ local Players = game:GetService("Players")
 ------------------
 local LevelService;
 local LightingController;
+local PerspectiveController;
 
 -------------
 -- Defines --
@@ -50,6 +51,7 @@ function LevelController:Start()
 
 	LevelService = self:GetService("LevelService")
 	LightingController = self:GetController("LightingController")
+	PerspectiveController = self:GetController("PerspectiveController")
 
 	---------------------------------------
 	-- Registering level lighting states --
@@ -63,6 +65,8 @@ function LevelController:Start()
 	----------------------------------------------------
 	LevelService.LevelStarted:connect(function(Level)
 		CurrentLevel = Level
+		wait(1) -- Let map finish replicating
+		PerspectiveController:SetPerspective(Level.Configs.StartingPerspective)
 		LightingController:LoadLightingState(Level.Configs.LightingState)
 	end)
 end
