@@ -117,6 +117,23 @@ end
 function LevelService:Start()
 	self:DebugLog("[Level Service] Running!")
 
+	local function CharacterAdded(Player,Character)
+		Character.Humanoid.Died:connect(function()
+			wait(6)
+			Character:Destroy()
+			Player:LoadCharacter()
+			Player.Character:MoveTo(CurrentLevel.Map.Start.Position)
+		end)
+	end
+
+	local Player = self:GetPlayer()
+
+	if Player.Character ~= nil then
+		coroutine.wrap(CharacterAdded)(Player,Player.Character)
+	end
+	Player.CharacterAdded:connect(function(Character)
+		CharacterAdded(Player,Character)
+	end)
 end
 
 return LevelService
