@@ -2,19 +2,19 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Sky" referent="RBX011CE645BEA2488899B9FC4BE17E43EF">
+	<Item class="Sky" referent="RBXD27715EED4784E8E8A871D059CF0669E">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
-			<bool name="CelestialBodiesShown">true</bool>
+			<bool name="CelestialBodiesShown">false</bool>
 			<float name="MoonAngularSize">11</float>
 			<Content name="MoonTextureId"><url>rbxasset://sky/moon.jpg</url></Content>
 			<string name="Name">Skybox</string>
-			<Content name="SkyboxBk"><url>http://www.roblox.com/asset/?id=98202165</url></Content>
-			<Content name="SkyboxDn"><url>http://www.roblox.com/asset/?id=98202176</url></Content>
-			<Content name="SkyboxFt"><url>http://www.roblox.com/asset/?id=98202152</url></Content>
-			<Content name="SkyboxLf"><url>http://www.roblox.com/asset/?id=98202161</url></Content>
-			<Content name="SkyboxRt"><url>http://www.roblox.com/asset/?id=98202146</url></Content>
-			<Content name="SkyboxUp"><url>http://www.roblox.com/asset/?id=98202169</url></Content>
+			<Content name="SkyboxBk"><url>rbxassetid://841810586</url></Content>
+			<Content name="SkyboxDn"><url>rbxassetid://841810586</url></Content>
+			<Content name="SkyboxFt"><url>rbxassetid://841810586</url></Content>
+			<Content name="SkyboxLf"><url>rbxassetid://841810586</url></Content>
+			<Content name="SkyboxRt"><url>rbxassetid://841810586</url></Content>
+			<Content name="SkyboxUp"><url>rbxassetid://841810586</url></Content>
 			<int name="StarCount">3000</int>
 			<float name="SunAngularSize">21</float>
 			<Content name="SunTextureId"><url>rbxasset://sky/sun.jpg</url></Content>
