@@ -30,8 +30,34 @@ local PlayerScripts = Player:WaitForChild("PlayerScripts")
 local LevelConfigs = ReplicatedStorage.LevelConfigs
 local MenuUI = ReplicatedStorage.Assets.UIs.MenuUI:Clone()
 	  MenuUI.Parent = Player:WaitForChild("PlayerGui")
+local LevelNameUI = ReplicatedStorage.Assets.UIs.LevelNameUI:Clone()
+	  LevelNameUI.TextLabel.TextTransparency = 1
+	  LevelNameUI.Parent = Player.PlayerGui
 local CurrentLevel;
 local WeatherRand = Random.new()
+
+local function ShowLevelName(LevelName)
+	local InTween = TweenService:Create(
+		LevelNameUI.TextLabel,
+		TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
+		{
+			TextTransparency = 0,
+			TextStrokeTransparency = 0.8
+		}
+	)
+	local OutTween = TweenService:Create(
+		LevelNameUI.TextLabel,
+		TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),
+		{
+			TextTransparency = 1,
+			TextStrokeTransparency = 1
+		}
+	)
+	LevelNameUI.TextLabel.Text = LevelName
+	InTween:Play()
+	wait(4)
+	OutTween:Play()
+end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- @Name : GetCurrentMap
@@ -150,6 +176,7 @@ function LevelController:Start()
 		Workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
 		Workspace.CurrentCamera.CameraSubject = Players.LocalPlayer.Character.Humanoid
 		PerspectiveController:SetPerspective(Level.Configs.StartingPerspective)
+		ShowLevelName(Level.Name)
 	end)
 
 	--------------------------------------------
