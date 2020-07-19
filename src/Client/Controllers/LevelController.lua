@@ -122,7 +122,7 @@ function LevelController:Start()
 		Music.SoundId = Level.Configs.Music
 		Music:Play()
 		Music_FadeIn_Tween:Play()
-		if WeatherRand:NextInteger(1,10) == 1 then
+		if WeatherRand:NextInteger(1,4) == 1 then
 			Rain:Enable()
 		else
 			Rain:Disable()
