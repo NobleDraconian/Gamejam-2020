@@ -9,7 +9,7 @@
 			"Modules" : {"$path" : "src/Server/Modules"},
 			"Scripts" : {"$path" : "src/Server/Scripts"},
 			"Services" : {"$path" : "src/Server/Services"},
-			"FrameworkServer" : {"$path" : "Packages/DragonEngine/server.project.json"}
+			"DragonEngine" : {"$path" : "Packages/DragonEngine/Framework_Server.rbxmx"}
 		},
 
 		"StarterPlayer" : {
@@ -22,7 +22,7 @@
 				"Scripts" : {"$path" : "src/Client/Scripts"},
 				"Controllers" : {"$path" : "src/Client/Controllers"},
 				"LightingStates" : {"$path" : "src/Client/LightingStates"},
-				"FrameworkClient" : {"$path" : "Packages/DragonEngine/client.project.json"}
+				"DragonEngine" : {"$path" : "Packages/DragonEngine/Framework_Client.rbxmx"}
 			}
 		},
 
@@ -39,7 +39,7 @@
 			"DragonEngine_Configs" : {"$path" : "src/Shared/DragonEngine_Configs"},
 			"Modules" : {"$path" : "src/Shared/Modules"},
 			"LevelConfigs" : {"$path" : "src/Shared/LevelConfigs"},
-			"FrameworkCore" : {"$path" : "Packages/DragonEngine/shared.project.json"}
+			"DragonEngine" : {"$path" : "Packages/DragonEngine/Framework_Core.rbxmx"}
 		},
 
 		"Workspace" : {
