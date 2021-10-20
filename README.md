@@ -1,4 +1,6 @@
-# Gamejam-2020
+# RDC 2020 Gamejam
+
+This is our RDC 2020 gamejam submission, "Visions of a perspective reality". It won the gamejam, with the title of "Most creative gameplay"!
 
 🐉HERE BE DRAGONS🐉
 
