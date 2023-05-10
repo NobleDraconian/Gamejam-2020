@@ -78,7 +78,6 @@ function LevelService:RunLevel(LevelName)
 			GoalReached:Fire()
 			GoalReached_Client:FireClient(Player)
 			wait(1)
-			Player.Character:Destroy()
 		end
 	end)
 	CurrentLevel = {}

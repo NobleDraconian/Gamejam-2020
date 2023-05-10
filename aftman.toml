@@ -1,0 +1,4 @@
+[tools]
+rojo = "Roblox/rojo@6.0.0-rc.1"
+selene = "Kampfkarren/selene@0.7.0"
+remodel = "Roblox/remodel@0.7.0"
